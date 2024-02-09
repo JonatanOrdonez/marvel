@@ -1,0 +1,23 @@
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: c@ptainAm3rica
+      MONGO_INITDB_DATABASE: marvel
+    ports:
+      - 27017:27017
+    networks:
+      - marvel_network
+  marvel_script:
+    build: .
+    depends_on:
+      - mongodb
+    networks:
+      - marvel_network
+
+networks:
+  marvel_network:
+    driver: bridge
